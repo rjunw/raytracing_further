@@ -1,22 +1,8 @@
-//==============================================================================================
-// Originally written in 2016 by Peter Shirley <ptrshrl@gmail.com>
-//
-// To the extent possible under law, the author(s) have dedicated all copyright and related and
-// neighboring rights to this software to the public domain worldwide. This software is
-// distributed without any warranty.
-//
-// You should have received a copy (see file COPYING.txt) of the CC0 Public Domain Dedication
-// along with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
-//==============================================================================================
-
-#include "rtweekend.h"
-
-#include "camera.h"
-#include "hittable.h"
-#include "hittable_list.h"
-#include "material.h"
-#include "sphere.h"
-
+#include "./utils/rtweekend.h"
+#include "./utils/hittable_list.h"
+#include "./utils/sphere.h"
+#include "./utils/camera.h"
+#include "./utils/material.h"
 
 int main() {
     hittable_list world;
@@ -65,8 +51,8 @@ int main() {
 
     cam.aspect_ratio      = 16.0 / 9.0;
     cam.image_width       = 1200;
-    cam.samples_per_pixel = 10;
-    cam.max_depth         = 20;
+    cam.samples_per_pixel = 500;
+    cam.max_depth         = 50;
 
     cam.vfov     = 20;
     cam.lookfrom = point3(13,2,3);
