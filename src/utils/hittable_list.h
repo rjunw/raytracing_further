@@ -44,6 +44,31 @@ class hittable_list : public hittable {
 
         return hit_anything;
     }
+
+    point3 get_upper_bounds() const override {
+        point3 upper_bound = point3(-infinity, -infinity, -infinity);
+        for (const auto& object : objects) {
+            point3 obj_upper = object->get_upper_bounds();
+            upper_bound = point3(
+                std::fmax(upper_bound.x(), obj_upper.x()),
+                std::fmax(upper_bound.y(), obj_upper.y()),
+                std::fmax(upper_bound.z(), obj_upper.z())
+            );
+        }
+        return upper_bound;
+    }
+    point3 get_lower_bounds() const override {
+        point3 lower_bound = point3(+infinity, +infinity, +infinity);
+        for (const auto& object : objects) {
+            point3 obj_lower = object->get_lower_bounds();
+            lower_bound = point3(
+                std::fmin(lower_bound.x(), obj_lower.x()),
+                std::fmin(lower_bound.y(), obj_lower.y()),
+                std::fmin(lower_bound.z(), obj_lower.z())
+            );
+        }
+        return lower_bound;
+    }
 };
 
 
