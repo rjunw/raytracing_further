@@ -14,6 +14,15 @@ This repo serves some fun, further personal learnings following the completion o
    5. Render each frame and compile into a single animation
 3. Anything else I can think of
 
+## Running
+
+Simply run in `./src`
+```
+cmake -B build
+cmake --build build --config Release
+build/Release/main.exe 480 32 1 > render.ppm
+```
+
 ## Render Speed Optimization
 These [benchmarks](notebooks/render_time.ipynb) are performed on 7800x3d, specifically rendering this scene:
 ![alt text](attachments/image-1.png)
