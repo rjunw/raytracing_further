@@ -198,7 +198,16 @@ class bvh : public hittable {
             else {
                 // test children
                 bool hit_left = intersect_bvh(r, ray_t, rec, node.left_index);
-                bool hit_right = intersect_bvh(r, ray_t, rec, node.left_index+1);
+                bool hit_right = intersect_bvh(
+                    r, 
+                    // left recursion only updates its own copy of ray_t.max = rec.t cause we pass by value
+                    //      - if we look through the right subtree and hit, we end up overwriting
+                    //        so it will always be the resulting closest and mess up occlusion. 
+                    //      - fix = pass the updated ray_t.max if we hit
+                    interval(ray_t.min, hit_left ? rec.t : ray_t.max), 
+                    rec, 
+                    node.left_index+1
+                );
                 return hit_left || hit_right;
             }
         }
