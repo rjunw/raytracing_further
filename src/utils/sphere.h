@@ -48,6 +48,14 @@ class sphere : public hittable {
         return true;
     }
 
+    // getters
+    point3 get_center() const override { return center; }
+    double get_radius() const { return radius; }
+    // outer bounds of sphere
+    point3 get_upper_bounds() const override { return center + vec3(radius, radius, radius); }
+    point3 get_lower_bounds() const override { return center - vec3(radius, radius, radius); }
+
+
   private:
     point3 center;
     double radius;

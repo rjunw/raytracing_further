@@ -4,17 +4,19 @@
 #include "./utils/hittable_list.h"
 #include "./utils/material.h"
 #include "./utils/sphere.h"
+#include "./utils/bvh.h"
 #include <string>
 
 int main(int argc, char* argv[]) {
     // pass in image_width and num_threads as arguments
-    if (argc != 3) { // expect 3 arguments: program_name, image_width, num_threads
+    if (argc != 4) { // expect 3 arguments: program_name, image_width, num_threads
         std::cerr << "Usage: " << argv[0] << " <image_width> <num_threads>\n";
         return 1;
     }
 
     int image_width = std::stoi(argv[1]);
     int num_threads = std::stoi(argv[2]);
+    int use_bvh = std::stoi(argv[3]);
 
     // world setup
     hittable_list world;
@@ -52,5 +54,10 @@ int main(int argc, char* argv[]) {
     // int num_threads = 1;
 
     // cam.render(world);
-    cam.render(world, num_threads);
+    if (use_bvh) {
+        bvh world_bvh(world);
+        cam.render(world_bvh, num_threads);
+    } else {
+        cam.render(world, num_threads);
+    }
 }

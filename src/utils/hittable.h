@@ -37,6 +37,15 @@ class hittable {
     virtual ~hittable() = default;
 
     virtual bool hit(const ray& r, interval ray_t, hit_record& rec) const = 0;
+
+    // getters for downstream bvh
+    virtual point3 get_lower_bounds() const = 0;
+    virtual point3 get_upper_bounds() const = 0;
+
+    // simple default center getter
+    virtual point3 get_center() const { 
+      return 0.5 * (get_lower_bounds() + get_upper_bounds()); 
+    }
 };
 
 
